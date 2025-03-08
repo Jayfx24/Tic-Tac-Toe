@@ -3,43 +3,67 @@
 const gameBoard = {
     board: ["X", "X", "", "", "", "", "", "", ""] ,
 
-    // c FIX game flow logic
+    //  FIX game flow logic
+    
+    flow: function(){
 
-    placeMarker: function(index,playerMarker){
-        if(this.board[index] === ""){
-            this.board[index] = playerMarker
-            this.winner()
+        let currentPlayer = playerOne;
+        return function(){
+            currentPlayer = (currentPlayer === playerOne) ? playerTwo : playerOne; 
+            return currentPlayer;
+                
         }
+
+    },
+       
+    init :  function(){
+        this.currentMaker = this.flow()    
+
+    },
+    
+    placeMarker: function(index){
+        if(this.board[index] === ""){
+            activePlayer = this.currentMaker()
+            this.board[index] = activePlayer.marker
+            console.log(this.board)
+            this.winner(activePlayer)
+        }
+
         else{
-        console.log("Position Taken")
+            console.log("Position Taken")
+            console.log(this.board)
+
     }
     },
 
     resetBoard: function(){
         this.board = ["", "", "", "", "", "", "", "", ""]
+        this.init()
        
     },
 
-    winner: function(marker){
+    winner: function(checkPlayer){
+        marker = checkPlayer.marker
         winF = [[0,1,2],[3,4,5],[6,7,8],[0,4,8],[2,4,6],[0,3,6],[1,4,7],[2,5,8]];
         for (pattern of winF){
             const [a, b, c] = pattern;
-            if (this.board[a] ===marker && this.board[b] === marker && this.board[c] === marker){
-                console.log("WINNER")
+            if (this.board[a] === marker && this.board[b] === marker && this.board[c] === marker){
+                return console.log(`${checkPlayer.name} wins this round! :)`)
             }
            
         }
     }
+    
+    }
 
 
 
+
+function createPlayer(marker, name){
+    return{marker,name}
 }
 
-function createPlayer(marker){
-    return{marker}
-}
+const playerOne = createPlayer("X",'james')
+const playerTwo = createPlayer("O",'peter')
 
-const playerOne = createPlayer("X")
-const playerTwo = createPlayer("O")
-
-
+gameBoard.init()
