@@ -70,7 +70,7 @@ const gameLogic = (function (){
 
     function getTurn(index){
         if (gameBoard.placeMarker(index,currentPlayer.getMarker())){
-        console.log(`${currentPlayer.getName()} placed ${currentPlayer.getMarker()} at ${index}`);
+            console.log(`${currentPlayer.getName()} placed ${currentPlayer.getMarker()} at ${index}`);
             if (gameBoard.checkWinner(currentPlayer.getMarker())){
                 console.log(`${currentPlayer.getName()} wins the round!`);
                 currentPlayer.addScore()
@@ -83,9 +83,11 @@ const gameLogic = (function (){
             else{
                 switchPlayer()
             }
+            return true
         }
         else{
             console.log("Position already taken! Try again...")
+            return false
         }
     }
 
@@ -95,6 +97,66 @@ const gameLogic = (function (){
         playerTwo = createPlayer("O","Peters");
         currentPlayer = playerOne;
     }
-    return { getTurn, resetGame };
+    function playerTurn(){
+        return currentPlayer
+    }
+    return { getTurn, resetGame, playerTurn };
+
 
 })()
+
+const displayController = {
+    container : document.querySelector('.container'),
+    displayPrompt : function (){
+        const  dialog = document.querySelector('dialog');
+       
+
+        dialog.showModal()
+
+    }, 
+    displayUI : function (){
+        // this.displayPrompt()
+        this.displayBoard()
+
+    },
+    displayEndGame : function(){
+
+    },
+
+    displayBoard : function(){
+        const boardUi = document.querySelector(".board");
+
+        const getBoard = gameBoard.getBoard()
+
+        for (let i = 0; i < getBoard.length; i++){
+            const newBox = document.createElement('div')
+            newBox.className = 'board-box'
+
+          
+
+            boardUi.appendChild(newBox)
+            
+            newBox.addEventListener('click',()=>{
+                const turn = gameLogic.playerTurn()
+                if (turn.getMarker() === 'O'){
+                    if(gameLogic.getTurn(i)){
+                        newBox.innerHTML = '<svg class = "board-icon" xmlns="http://www.w3.org/2000/svg" id="Layer_1" data-name="Layer 1" viewBox="0 0 24 24" width="512" height="512"><path d="M12.021,24c-5.514,0-10-4.486-10-10v-4c.504-13.251,19.5-13.241,20,0v4c0,5.514-4.486,10-10,10Zm0-22c-4.411,0-8,3.589-8,8v4c.377,10.591,15.627,10.583,16,0v-4c0-4.411-3.589-8-8-8Z"/></svg>'
+                    }
+                }
+                else if (turn.getMarker() === 'X'){
+                    if(gameLogic.getTurn(i)){
+
+                    newBox.innerHTML = '<svg class = "board-icon"  xmlns="http://www.w3.org/2000/svg" id="Layer_1" data-name="Layer 1" viewBox="0 0 24 24" width="512" height="512"><path d="M13.93,12L21.666,2.443c.521-.644,.422-1.588-.223-2.109-.645-.522-1.588-.421-2.109,.223l-7.334,9.06L4.666,.557c-1.241-1.519-3.56,.357-2.332,1.887l7.736,9.557L2.334,21.557c-.521,.644-.422,1.588,.223,2.109,.64,.519,1.586,.424,2.109-.223l7.334-9.06,7.334,9.06c.524,.647,1.47,.742,2.109,.223,.645-.521,.744-1.466,.223-2.109l-7.736-9.557Z"/></svg>'
+                    }
+                    
+                }
+            })
+        }
+
+
+    }
+
+
+}
+
+displayController.displayUI()
