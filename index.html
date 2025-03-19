@@ -16,9 +16,49 @@
 
     </dialog>
 
-     <div class="board">
-        
-     </div>   
+
+    <dialog class="again-dialog"  >
+        <div class="dialog-content">
+          <form method="dialog">
+            <h3 class="winner">
+            </h3>
+            <h4 class="dialog-title">Want to play another round?</h4>
+            <div class="dialog-buttons">
+              <button type="submit" class="btn btn-primary" value="yes" autofocus>YES</button>
+              <button class="btn btn-secondary" value="no">NO</button>
+            </div>
+          </form>
+         
+        </div>
+      </dialog>
+     <div class="board-container">
+      <div class="show-text">
+        <div class="players">
+          <p class="player-role">Player X</p>
+          <h2 class="player-name" id="playerOneName">XYZ</h2>
+          <p class="player-score" id="playerOneScore"></p>
+        </div>
+      
+        <div class="vs"><span >VS</span></div>
+      
+        <div class="players">
+          <p class="player-role">Player O</p>
+          <h2 class="player-name" id="playerTwoName">XYZ</h2>
+          <p class="player-score" id="playerTwoScore"></p>
+        </div>
+      </div>
+      
+      <div class="board">
+      
+      </div>
+      <div class="game-over">
+        <h3>Final Score</h3>
+        <p class="p1" >A</p>
+        <p class="p2">B</p>
+
+        <button>RESET</button>
+      </div>
+      </div>
     </div>
     
     <script src="scripts.js"></script>
