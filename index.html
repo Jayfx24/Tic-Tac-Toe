@@ -9,9 +9,20 @@
 <body>
     <div class="container">
     <dialog class="prompt-dialog">
-        <p><strong>Welcome</strong>to my Tic-Tac Game</p>
+        <p><strong>Welcome</strong> to my Tic-Tac Game</p>
 
+        <div class="dialog-content">
+          <form method="dialog">
+            <label for=""></label>
+            <input type="text">
 
+            <div class="dialog-buttons">
+              <button type="submit" class="btn btn-primary" value="yes" autofocus>YES</button>
+              <button class="btn btn-secondary" value="no">NO</button>
+            </div>
+          </form>
+         
+        </div>
         <p></p>
 
     </dialog>
@@ -35,16 +46,16 @@
       <div class="show-text">
         <div class="players">
           <p class="player-role">Player X</p>
-          <h2 class="player-name" id="playerOneName">XYZ</h2>
-          <p class="player-score" id="playerOneScore"></p>
+          <h2 class="player-name" id="playerOneName">Player One</h2>
+          <p class="player-score" id="playerOneScore">0</p>
         </div>
       
         <div class="vs"><span >VS</span></div>
       
         <div class="players">
           <p class="player-role">Player O</p>
-          <h2 class="player-name" id="playerTwoName">XYZ</h2>
-          <p class="player-score" id="playerTwoScore"></p>
+          <h2 class="player-name" id="playerTwoName">Player two</h2>
+          <p class="player-score" id="playerTwoScore">0</p>
         </div>
       </div>
       
@@ -56,7 +67,7 @@
         <p class="p1" >A</p>
         <p class="p2">B</p>
 
-        <button>RESET</button>
+        <button class="restart">RESTART</button>
       </div>
       </div>
     </div>
