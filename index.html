@@ -10,15 +10,22 @@
     <div class="container">
     <dialog class="prompt-dialog">
         <p><strong>Welcome</strong> to my Tic-Tac Game</p>
-
         <div class="dialog-content">
           <form method="dialog">
-            <label for=""></label>
-            <input type="text">
+            <div class="form-group">
+              <label for="xPlayerName" class="player-x">Player X Name:</label>
+              <input type="text" id="xPlayerName" placeholder="Enter name for Player X">
+              <div class="note">Optional: Leave blank for default name</div>
 
-            <div class="dialog-buttons">
-              <button type="submit" class="btn btn-primary" value="yes" autofocus>YES</button>
-              <button class="btn btn-secondary" value="no">NO</button>
+            </div>
+            <div class="form-group">
+              <label for="oPlayerName" class="player-o">Player O Name:</label>
+              <input type="text" id="oPlayerName" placeholder="Enter name for Player O">
+              <div class="note">Optional: Leave blank for default name</div>
+
+            </div>
+            <div class="start-buttons">
+              <button type="submit" id="startGame" autofocus>Start Game</button>
             </div>
           </form>
          

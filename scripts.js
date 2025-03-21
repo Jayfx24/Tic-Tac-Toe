@@ -139,7 +139,7 @@ const displayController = {
     dialog.showModal();
   },
   displayUI: function () {
-    // this.displayPrompt()
+    this.displayPrompt()
 
     this.displayBoard();
     this.displayScore();
