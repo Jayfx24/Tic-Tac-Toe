@@ -125,8 +125,9 @@ const getElements = () => ({
 
 
   // 
-  dialog: document.querySelector("dialog"),
+  startPrompt: document.querySelector(".start-prompt"),
   //
+  boardContainer: document.querySelector(".board-container"),
   showText: document.querySelector(".show-text"),
   boardUi: document.querySelector(".board"),
   //
@@ -147,13 +148,16 @@ const getElements = () => ({
 const displayController = {
   displayPrompt: function () {
     const elements = getElements()
-    const dialog = elements.dialog;
+    const startPrompt = elements.startPrompt;
     const form = elements.form
-    
-    dialog.showModal();
+    const boardContainer = elements.boardContainer;
+    const gameOverDiv = elements.gameOverDiv;
 
+    boardContainer.classList.add("hidden");
+    
+   
     form.addEventListener('submit', (event)=>{
-      // event.preventDefault(); // Prevent page reload
+      event.preventDefault(); // Prevent page reload
 
       const formData = new FormData(form);
       const playerOne = formData.get('xPlayerName')||"Player One"
@@ -162,7 +166,16 @@ const displayController = {
 
       console.log(playerOne,playerTwo)
       gameLogic.setPlayers(playerOne, playerTwo)
+      this.displayBoard()
       this.displayScore()
+
+      form.reset()
+      startPrompt.classList.add("hidden");
+      gameOverDiv.classList.add("hidden");
+      boardContainer.classList.remove("hidden");
+
+      
+
 
       
 
@@ -172,9 +185,9 @@ const displayController = {
 
   
   displayUI: function () {
-    this.displayPrompt()
-
-    this.displayBoard();
+    // this.displayPrompt()
+    this.displayBoard()
+      this.displayScore()
 
     this.playDialog.addEventListener("close", () => {
       if (this.playDialog.returnValue === "yes") {
@@ -192,13 +205,14 @@ const displayController = {
     const players = gameLogic.getPlayers();
     const { playerOne, playerTwo } = players;
     const elements = getElements();
-    const boardContainer = elements.boardUi;
+    const boardUi = elements.boardUi;
     const gameOverDiv = elements.gameOverDiv;
     const showText = elements.showText;
+    const startPrompt = elements.startPrompt;
 
-    gameOverDiv.classList.add("show");
-    boardContainer.classList.add("hidden");
 
+    gameOverDiv.classList.remove("hidden");
+    boardUi.classList.add("hidden");
     showText.classList.add("hidden");
 
    
@@ -208,17 +222,19 @@ const displayController = {
     elements.restartButton.addEventListener("click", () => {
       // prompt name
     
-      boardContainer.innerHTML = ''  
+      // boardUi.innerHTML = ''  
 
-      gameOverDiv.classList.remove("show");
-      boardContainer.classList.remove('hidden'); 
+      gameOverDiv.classList.add("hidden");
+      boardUi.classList.remove('hidden'); 
       showText.classList.remove('hidden'); 
       gameLogic.resetGame();
       Object.values(players).forEach(player => player.resetScore())
     //   playerOne.resetScore()
     //   playerTwo.resetScore()
 
-      this.displayUI()
+      this.displayPrompt()
+      startPrompt.classList.remove('hidden'); 
+
 
 
     });
@@ -228,10 +244,12 @@ const displayController = {
   displayBoard: function () {
     const showWinner = document.querySelector(".winner");
     const getBoard = gameBoard.getBoard();
+    const boardUi = getElements().boardUi;
+
+    boardUi.innerHTML = '' 
 
     for (let i = 0; i < getBoard.length; i++) {
       const newBox = document.createElement("div");
-      const boardUi = getElements().boardUi;
       newBox.className = "board-box";
 
       boardUi.appendChild(newBox);
@@ -245,18 +263,23 @@ const displayController = {
           if (gameLogic.getTurn(i)) {
             newBox.innerHTML =
               '<svg class = "board-icon" xmlns="http://www.w3.org/2000/svg" id="Layer_1" data-name="Layer 1" viewBox="0 0 24 24" width="512" height="512"><path d="M12.021,24c-5.514,0-10-4.486-10-10v-4c.504-13.251,19.5-13.241,20,0v4c0,5.514-4.486,10-10,10Zm0-22c-4.411,0-8,3.589-8,8v4c.377,10.591,15.627,10.583,16,0v-4c0-4.411-3.589-8-8-8Z"/></svg>';
-          }
+              newBox.classList.add("filled")
+            }
         } else if (turn.getMarker() === "X") {
           if (gameLogic.getTurn(i)) {
             newBox.innerHTML =
               '<svg class = "board-icon"  xmlns="http://www.w3.org/2000/svg" id="Layer_1" data-name="Layer 1" viewBox="0 0 24 24" width="512" height="512"><path d="M13.93,12L21.666,2.443c.521-.644,.422-1.588-.223-2.109-.645-.522-1.588-.421-2.109,.223l-7.334,9.06L4.666,.557c-1.241-1.519-3.56,.357-2.332,1.887l7.736,9.557L2.334,21.557c-.521,.644-.422,1.588,.223,2.109,.64,.519,1.586,.424,2.109-.223l7.334-9.06,7.334,9.06c.524,.647,1.47,.742,2.109,.223,.645-.521,.744-1.466,.223-2.109l-7.736-9.557Z"/></svg>';
-          }
+              newBox.classList.add("filled")
+            
+            }
         }
 
         const winningP = gameBoard.checkWinner(turn.getMarker());
         if (winningP) {
           showWinner.innerHTML = `<strong>${turn.getName()}</strong> wins round`;
           const winningDivs = winningP.map((index) => boardUi.children[index]);
+          // newBox.classList.remove("filled")
+
 
           winningDivs.forEach((div) => {
             div.classList.add("winning-divs");
@@ -267,6 +290,7 @@ const displayController = {
         } else if (gameBoard.draw()) {
           showWinner.innerHTML = `Draw`;
           this.playDialog.showModal();
+
         }
       });
     }
