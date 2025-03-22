@@ -30,14 +30,56 @@ dialog{
 }
 .prompt-dialog{
     
-    width: 53%;
-    height: 33%;
+    /* width: 53%;
+    height: 33%; */
+    padding: 1.2em 2em;
+    border-radius: 10px;
+    border: 2px solid;
     /* background-color: black; */
 
 }
 
 .dialog-content{
-    /* ss */
+    margin-top: 1em;
+    /* stss */
+    /* display: flex;
+    border: 1px solid; */
+
+
+}
+
+.form-group{
+    /* border: 1px solid; */
+    padding: 10px 0;
+    margin-bottom: 1em;
+
+}
+.form-group label{
+    font-weight: 800;
+
+}
+
+.form-group input{
+    font-size: .9em;
+    padding: .3em ;
+    
+}
+.note{
+    margin-top: 2px;
+    font-size: .8em;
+    font-style: italic;
+    color: gray;
+}
+
+.start-button{
+    /* border: 1px solid; */
+    text-align: end;
+
+}
+#startGame{
+    font-size: .9em;
+    padding: .3em 1em;
+    border-radius: 4px;
 }
 
 .again-dialog{

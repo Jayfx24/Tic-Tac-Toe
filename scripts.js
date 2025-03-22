@@ -66,9 +66,19 @@ const createPlayer = function (marker, name) {
 };
 
 const gameLogic = (function () {
-  let playerOne = createPlayer("X", "James");
-  let playerTwo = createPlayer("O", "Peters");
-  let currentPlayer = playerOne;
+  let playerOne ;
+  let playerTwo;
+  let currentPlayer ;
+
+  
+  function setPlayers(pOne,pTwo){
+   
+    playerOne = createPlayer("X", pOne);
+    playerTwo = createPlayer("O", pTwo);
+    currentPlayer = playerOne;
+    // displayController.displayScore()
+    
+  }
 
   function switchPlayer() {
     currentPlayer = currentPlayer === playerOne ? playerTwo : playerOne;
@@ -98,10 +108,7 @@ const gameLogic = (function () {
 
   function resetGame() {
     gameBoard.resetBoard();
-    // gameLogic()
-    // playerOne = createPlayer("X","James");
-    // playerTwo = createPlayer("O","Peters");
-    // currentPlayer = playerOne;
+   
   }
   function playerTurn() {
     return currentPlayer;
@@ -109,10 +116,15 @@ const gameLogic = (function () {
   function getPlayers() {
     return { playerOne, playerTwo };
   }
-  return { getTurn, resetGame, playerTurn, getPlayers };
+  return { getTurn, resetGame, playerTurn, getPlayers, setPlayers };
 })();
 
 const getElements = () => ({
+  startButton: document.getElementById("startGame"),
+  form: document.getElementById("gameForm"),
+
+
+  // 
   dialog: document.querySelector("dialog"),
   //
   showText: document.querySelector(".show-text"),
@@ -134,15 +146,35 @@ const getElements = () => ({
 
 const displayController = {
   displayPrompt: function () {
-    const dialog = getElements().dialog;
-
+    const elements = getElements()
+    const dialog = elements.dialog;
+    const form = elements.form
+    
     dialog.showModal();
+
+    form.addEventListener('submit', (event)=>{
+      // event.preventDefault(); // Prevent page reload
+
+      const formData = new FormData(form);
+      const playerOne = formData.get('xPlayerName')||"Player One"
+      const playerTwo = formData.get('oPlayerName') ||"Player Two"
+
+
+      console.log(playerOne,playerTwo)
+      gameLogic.setPlayers(playerOne, playerTwo)
+      this.displayScore()
+
+      
+
+
+    })
   },
+
+  
   displayUI: function () {
     this.displayPrompt()
 
     this.displayBoard();
-    this.displayScore();
 
     this.playDialog.addEventListener("close", () => {
       if (this.playDialog.returnValue === "yes") {
@@ -240,6 +272,8 @@ const displayController = {
     }
   },
   displayScore: function () {
+  
+
     const players = gameLogic.getPlayers();
     const { playerOne, playerTwo } = players;
     const elements = getElements();
@@ -248,6 +282,7 @@ const displayController = {
     elements.playerOneScore.textContent = playerOne.getScore();
     elements.playerTwoName.textContent = playerTwo.getName();
     elements.playerTwoScore.textContent = playerTwo.getScore();
+  
   },
 };
 
