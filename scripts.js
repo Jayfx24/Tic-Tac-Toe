@@ -282,7 +282,8 @@ const displayController = {
           showWinner.innerHTML = `<strong>${turn.getName()}</strong> wins!`;
           const winningDivs = winningP.map((index) => boardUi.children[index]);
           winningDivs.forEach((div) => {
-            div.classList.add("winning-divs");
+            // div.classList.add("winning-divs");
+            div.style.backgroundColor = '#1B5E20';
           });
           this.displayScore();
 

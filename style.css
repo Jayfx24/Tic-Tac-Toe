@@ -100,7 +100,6 @@ dialog{
    
     /* color: white; */
     background-color: #FAF3E0;
-    /* background-color: transparent; */
     border: 0.1px solid black;
     border-radius: 0.5em;
     width: clamp(300px, 40%, 500px);
@@ -256,10 +255,6 @@ dialog{
 }
 
 
-.winning-divs{
-    border: 4px solid green;
-    background-color: #1B5E20;
-}
 
 
 .board-icon{
@@ -317,6 +312,10 @@ dialog{
 }
 
 
+.winning-divs{
+    border: 4px solid green;
+    background-color: #1B5E20;
+}
 .hidden{
     display: none;
 }
