@@ -185,9 +185,9 @@ const displayController = {
 
   
   displayUI: function () {
-    // this.displayPrompt()
-    this.displayBoard()
-      this.displayScore()
+    this.displayPrompt()
+    // this.displayBoard()
+    //   this.displayScore()
 
     this.playDialog.addEventListener("close", () => {
       if (this.playDialog.returnValue === "yes") {
@@ -278,9 +278,6 @@ const displayController = {
         if (winningP) {
           showWinner.innerHTML = `<strong>${turn.getName()}</strong> wins round`;
           const winningDivs = winningP.map((index) => boardUi.children[index]);
-          // newBox.classList.remove("filled")
-
-
           winningDivs.forEach((div) => {
             div.classList.add("winning-divs");
           });

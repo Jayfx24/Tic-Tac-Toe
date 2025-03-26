@@ -1,3 +1,8 @@
+:root{
+    --button-bg-color: green;
+    --button-text-color: white;
+}
+
 *{
     box-sizing: border-box;
     margin: 0;
@@ -8,6 +13,7 @@
 body{
     width: 100vw;
     height: 100vh;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 }
 
 .container{
@@ -57,12 +63,14 @@ dialog{
 }
 .form-group label{
     font-weight: 800;
+    
 
 }
 
 .form-group input{
-    font-size: .9em;
     padding: .3em ;
+    font-size: inherit;
+
     
 }
 .note{
@@ -98,7 +106,7 @@ dialog{
 .again-dialog{
     padding: 1rem;
     letter-spacing: 1px;
-    letter-spacing: 1px;
+   
     /* color: white; */
     background-color: #FAF3E0;
     /* background-color: transparent; */
@@ -157,11 +165,12 @@ dialog{
 
 
 .winner{
-    margin-bottom: 2em;
+    margin-bottom: 1em;
 }
 .board-container{
     /* border: 1px solid black; */
     height: 100%;
+    width: clamp(600px, 50%, 1500px );
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -248,18 +257,22 @@ dialog{
 }
 
 .board-box:hover {
-    /* background-color: lightgrey; */
     background-color: #f0f0f0;
 
     transform: scale(1.05);
 }
 
 .board-box.filled {
-    background-color: #ddd;
-    transform: none; /* Disable hover scaling after selection */
-    cursor: default; /* No pointer when already clicked */
+    /* background-color: #ddd; */
+    transform: none; 
+    cursor: default; 
 }
 
+
+.winning-divs{
+    border: 4px solid green;
+    background-color: #1B5E20;
+}
 
 
 .board-icon{
@@ -268,22 +281,22 @@ dialog{
     
 }
 
-.winning-divs{
-    border: 4px solid green;
-}
 
 .game-over {
     background-color: #333;
     color: white;
     width: 100%;
     padding: 30px;
-    border-radius: 10px;
-    text-align: center;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    /* width: 300px; */
-    
-    /* opacity: 0; */
+    height: calc(100% / 2 - 30px);
 
+    border-radius: 10px;
+    /* text-align: center; */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    
   }
 
 .game-over h3{
@@ -293,12 +306,20 @@ dialog{
     letter-spacing: 2px;
     margin-bottom: 1em;
 }
+.game-over-text{
+    font-size: 1.5em;
+    margin-bottom: 2em;
+
+}
 .game-over button{
     margin-top: 1em;
     padding: 1em 2em; 
     font-size: .9em;
     border-radius: 10px;
-    background-color: green;
+    background-color: var(--button-bg-color);
+    color: var(--button-text-color);
+    font-size: inherit;
+
     font-weight: bold;
     border: none;
 }
@@ -319,8 +340,18 @@ dialog{
 
 .start-prompt{
     background-color: orange;
-    color: white;
+    /* color: white; */
     border: none;
+    
+}
+#startGame{
+   
+    border-radius: 10px;
+    background-color: var(--button-bg-color);
+    color: var(--button-text-color);
+    font-weight: bold;
+    font-size: inherit;
+    /* border: none; */
 }
 .show-text{
     /* background-color: orange;
