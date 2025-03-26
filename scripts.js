@@ -120,6 +120,9 @@ const gameLogic = (function () {
 })();
 
 const getElements = () => ({
+  container: document.querySelector('.container'),
+  //
+
   startButton: document.getElementById("startGame"),
   form: document.getElementById("gameForm"),
 
@@ -276,7 +279,7 @@ const displayController = {
 
         const winningP = gameBoard.checkWinner(turn.getMarker());
         if (winningP) {
-          showWinner.innerHTML = `<strong>${turn.getName()}</strong> wins round`;
+          showWinner.innerHTML = `<strong>${turn.getName()}</strong> wins!`;
           const winningDivs = winningP.map((index) => boardUi.children[index]);
           winningDivs.forEach((div) => {
             div.classList.add("winning-divs");
@@ -306,5 +309,11 @@ const displayController = {
   
   },
 };
-
+// displayController.displayPrompt();
 displayController.displayUI();
+document.addEventListener("DOMContentLoaded", function () {
+  document.querySelector(".container").style.visibility = "visible";
+  document.querySelector(".container").style.opacity = "1";
+
+});
+
