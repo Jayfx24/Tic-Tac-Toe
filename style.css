@@ -103,7 +103,7 @@ dialog{
     /* background-color: transparent; */
     border: 0.1px solid black;
     border-radius: 0.5em;
-    width: 30%;
+    width: clamp(300px, 40%, 500px);
     max-width: 300px;
     text-align: center;
 
